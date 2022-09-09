@@ -1,67 +1,63 @@
 package com.rbtech.course.antities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_user")
-public class User implements Serializable{
+@Table(name = "tb_order")
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private String email;
-	private String phone;
-	private String password;
+	private Instant moment;
 	
-	@OneToMany(mappedBy = "client")
-	private List<Order> order = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "client_Id")
+	private User client;
 	
-	public User() {
+	public Order() {
 	}
 
-	public User(Long id, String name, String email, String phone, String password) {
+	public Order(Long id, Instant moment, User client) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
+		this.moment = moment;
+		this.client = client;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getEmail() {
-		return email;
+	public Instant getMoment() {
+		return moment;
 	}
 
-	public String getPhone() {
-		return phone;
+	public void setMoment(Instant moment) {
+		this.moment = moment;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getClient() {
+		return client;
 	}
-	
-	public List<Order> getOrder() {
-		return order;
+
+	public void setClient(User client) {
+		this.client = client;
 	}
 
 	@Override
@@ -77,7 +73,10 @@ public class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
+	
 }
