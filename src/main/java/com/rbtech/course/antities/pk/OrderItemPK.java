@@ -12,7 +12,7 @@ import com.rbtech.course.antities.Product;
 
 @Embeddable
 
-public class OrdemItemPK implements Serializable{
+public class OrderItemPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
@@ -47,7 +47,7 @@ public class OrdemItemPK implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrdemItemPK other = (OrdemItemPK) obj;
+		OrderItemPK other = (OrderItemPK) obj;
 		return Objects.equals(order, other.order) && Objects.equals(product, other.product);
 	}
 	
